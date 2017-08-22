@@ -24,13 +24,22 @@ weight_matrix_2 = randWeightInit(hidden_layer_1_size,hidden_layer_2_size);
 weight_matrix_3 = randWeightInit(hidden_layer_2_size,hidden_layer_3_size);
 weight_matrix_4 = randWeightInit(hidden_layer_3_size,output_layer_size);
 
+%%% Storing the initial weight matrix for Relu operation
+initial_weight_matrix_1 = weight_matrix_1;
+initial_weight_matrix_2 = weight_matrix_2;
+initial_weight_matrix_3 = weight_matrix_3;
+initial_weight_matrix_4 = weight_matrix_4;
+
 %% Training Parameters
 lambda = 0.005;
 step_size = 0.1;
 lossfunction = [];
 test_loss_trend = [];
 
-%% Training the neural network   
+lossfunctionrelu = [];
+test_loss_relu = [];
+
+%% Training the neural network using sigmoid activation function
 for i = 1:10000
     r = randi([1 size(train_images,2)],1,64);
     X = train_images(:,r);
@@ -41,6 +50,26 @@ for i = 1:10000
     if mod(i,200) == 0
         test_loss = calculateTestLoss(test_images',test_labels,output_layer_size,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
         test_loss_trend = [test_loss_trend ; test_loss];
+    end
+end
+
+%% Reinitializing the weight matrices
+weight_matrix_1 = initial_weight_matrix_1;
+weight_matrix_2 = initial_weight_matrix_2;
+weight_matrix_3 = initial_weight_matrix_3;
+weight_matrix_4 = initial_weight_matrix_4;
+
+%% Training the Neural Network using ReLu activation function
+for i = 1:10000
+    r = randi([1 size(train_images,2)],1,64);
+    X = train_images(:,r);
+    y = train_labels(r,:);
+    [loss,weight_grad_1 , weight_grad_2 , weight_grad_3 , weight_grad_4] = calculateGradientRelu(X',y,output_layer_size,lambda,weight_matrix_1,weight_matrix_2, weight_matrix_3, weight_matrix_4); 
+    [weight_matrix_1, weight_matrix_2 , weight_matrix_3, weight_matrix_4] = updateWeightMatrix(weight_matrix_1,weight_grad_1,weight_matrix_2,weight_grad_2,weight_matrix_3,weight_grad_3,weight_matrix_4,weight_grad_4,step_size);
+    lossfunctionrelu = [lossfunctionrelu; loss];
+    if mod(i,200) == 0
+        test_loss = calculateTestLossRelu(test_images',test_labels,output_layer_size,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
+        test_loss_relu = [test_loss_relu ; test_loss];
     end
 end
 
