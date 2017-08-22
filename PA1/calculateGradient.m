@@ -1,10 +1,10 @@
-function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,num_labels,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4)
+function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,num_labels,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4)
     %% Number of data points
     m = size(X,1);
 
     %% Convert y into one hot encoding
     p = eye(num_labels);
-    Y = p(y,:);
+    Y = p(y+1,:);
     
     %% Forward Propogation
     a1 = [ones(size(X,1),1) X]; % Add a bias term 
@@ -28,8 +28,8 @@ function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,num_labels,weig
     %%% Calculating the deltas
     d5 = a5 - Y;
     d4 = (d5 * weight_matrix_4) .* [ones(size(z4,1),1) sigmoidGradient(z4)];
-    d3 = (d4 * weight_matrix_3) .* [ones(size(z3,1),1) sigmoidGradient(z3)];
-    d2 = (d3 * weight_matrix_2) .* [ones(size(z2,1),1) sigmoidGradient(z2)];
+    d3 = (d4(:,2:end) * weight_matrix_3) .* [ones(size(z3,1),1) sigmoidGradient(z3)];
+    d2 = (d3(:,2:end) * weight_matrix_2) .* [ones(size(z2,1),1) sigmoidGradient(z2)];
     
     %%% Calculating the Deltas
     D1 = d2(:,2:end)' * a1;
