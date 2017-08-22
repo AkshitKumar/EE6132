@@ -27,6 +27,8 @@ weight_matrix_4 = randWeightInit(hidden_layer_3_size,output_layer_size);
 %% Training Parameters
 lambda = 0.005;
 step_size = 0.1;
+lossfunction = [];
+test_loss_trend = [];
 
 %% Training the neural network   
 for i = 1:10000
@@ -37,7 +39,7 @@ for i = 1:10000
     [weight_matrix_1, weight_matrix_2 , weight_matrix_3, weight_matrix_4] = updateWeightMatrix(weight_matrix_1,weight_grad_1,weight_matrix_2,weight_grad_2,weight_matrix_3,weight_grad_3,weight_matrix_4,weight_grad_4,step_size);
     lossfunction = [lossfunction; loss];
     if mod(i,200) == 0
-        test_loss = calculateTestLoss(test_images',test_labels,output_layer_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
+        test_loss = calculateTestLoss(test_images',test_labels,output_layer_size,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
         test_loss_trend = [test_loss_trend ; test_loss];
     end
 end

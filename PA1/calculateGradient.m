@@ -35,7 +35,7 @@ function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,num_labels,lamb
     D1 = d2(:,2:end)' * a1;
     D2 = d3(:,2:end)' * a2;
     D3 = d4(:,2:end)' * a3;
-    D4 = d5(:,2:end)' * a4;
+    D4 = d5' * a4;
     
     %% Calculate the Gradient
     grad_1 = D1/m;
