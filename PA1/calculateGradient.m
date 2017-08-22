@@ -50,4 +50,3 @@ function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,num_labels,lamb
     
 
 end
-
