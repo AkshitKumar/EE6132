@@ -33,52 +33,6 @@ initial_weight_matrix_4 = weight_matrix_4;
 %% Training Parameters
 lambda = 0.005;
 step_size = 0.1;
-% lossfunction = [];
-% test_loss_trend = [];
-% test_acc = [];
-% 
-% lossfunctionrelu = [];
-% test_loss_relu = [];
 
+%% Training the network
 [training_loss, test_loss, test_acc] = trainNN(8000,train_images,train_labels,test_images,test_labels,1,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,0,output_layer_size);
-
-%{
-%% Training the neural network using sigmoid activation function
-for i = 1:10000
-    r = randi([1 size(train_images,2)],1,64);
-    X = train_images(:,r);
-    y = train_labels(r,:);
-    [loss,weight_grad_1 , weight_grad_2 , weight_grad_3 , weight_grad_4] = calculateGradient(X',y,output_layer_size,lambda,weight_matrix_1,weight_matrix_2, weight_matrix_3, weight_matrix_4); 
-    [weight_matrix_1, weight_matrix_2 , weight_matrix_3, weight_matrix_4] = updateWeightMatrix(weight_matrix_1,weight_grad_1,weight_matrix_2,weight_grad_2,weight_matrix_3,weight_grad_3,weight_matrix_4,weight_grad_4,step_size);
-    lossfunction = [lossfunction; loss];
-    if mod(i,200) == 0
-        [test_loss,acc] = calculateTestLoss(test_images',test_labels,output_layer_size,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
-        test_loss_trend = [test_loss_trend ; test_loss];
-        test_acc = [test_acc; acc];
-    end
-end
-
-
-%% Reinitializing the weight matrices
-weight_matrix_1 = initial_weight_matrix_1;
-weight_matrix_2 = initial_weight_matrix_2;
-weight_matrix_3 = initial_weight_matrix_3;
-weight_matrix_4 = initial_weight_matrix_4;
-
-
-%% Training the Neural Network using ReLu activation function
-for i = 1:10000
-    r = randi([1 size(train_images,2)],1,64);
-    X = train_images(:,r);
-    y = train_labels(r,:);
-    [loss,weight_grad_1 , weight_grad_2 , weight_grad_3 , weight_grad_4] = calculateGradientRelu(X',y,output_layer_size,lambda,weight_matrix_1,weight_matrix_2, weight_matrix_3, weight_matrix_4); 
-    [weight_matrix_1, weight_matrix_2 , weight_matrix_3, weight_matrix_4] = updateWeightMatrix(weight_matrix_1,weight_grad_1,weight_matrix_2,weight_grad_2,weight_matrix_3,weight_grad_3,weight_matrix_4,weight_grad_4,step_size);
-    lossfunctionrelu = [lossfunctionrelu; loss];
-    if mod(i,200) == 0
-        test_loss = calculateTestLossRelu(test_images',test_labels,output_layer_size,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
-        test_loss_relu = [test_loss_relu ; test_loss];
-    end
-end
-%}
-
-
