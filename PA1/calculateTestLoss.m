@@ -1,4 +1,4 @@
-function [L] = calculateTestLoss(X,y,num_labels,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4)
+function [L,acc] = calculateTestLoss(X,y,num_labels,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4)
     %% Number of data points
     m = size(X,1);
 
@@ -23,6 +23,11 @@ function [L] = calculateTestLoss(X,y,num_labels,lambda,weight_matrix_1,weight_ma
     reg = (lambda/(2*m)) * (sum(sum(weight_matrix_1(:,2:end).^2)) + sum(sum(weight_matrix_2(:,2:end).^2)) + sum(sum(weight_matrix_3(:,2:end).^2)) + ... 
           sum(sum(weight_matrix_4(:,2:end).^2)));
     L = L + reg;
+    
+    %% Calculate the test accuracy
+    [m,index] = max(a5,[],2);
+    matches = (index == y+1);
+    acc = sum(matches) / length(y);
 
 end
 
