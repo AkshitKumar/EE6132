@@ -33,13 +33,16 @@ initial_weight_matrix_4 = weight_matrix_4;
 %% Training Parameters
 lambda = 0.005;
 step_size = 0.1;
-lossfunction = [];
-test_loss_trend = [];
-test_acc = [];
+% lossfunction = [];
+% test_loss_trend = [];
+% test_acc = [];
+% 
+% lossfunctionrelu = [];
+% test_loss_relu = [];
 
-lossfunctionrelu = [];
-test_loss_relu = [];
+[training_loss, test_loss, test_acc] = trainNN(8000,train_images,train_labels,test_images,test_labels,1,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,0,output_layer_size);
 
+%{
 %% Training the neural network using sigmoid activation function
 for i = 1:10000
     r = randi([1 size(train_images,2)],1,64);
@@ -55,7 +58,7 @@ for i = 1:10000
     end
 end
 
-%{
+
 %% Reinitializing the weight matrices
 weight_matrix_1 = initial_weight_matrix_1;
 weight_matrix_2 = initial_weight_matrix_2;
@@ -77,4 +80,5 @@ for i = 1:10000
     end
 end
 %}
+
 
