@@ -5,7 +5,7 @@ function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,activation,num_
     %% Convert y into one hot encoding
     p = eye(num_labels);
     Y = p(y+1,:);
-    
+     
     %% activation = 0 is sigmoid , else relu
     if(activation == 0)
         %% Forward Propogation
