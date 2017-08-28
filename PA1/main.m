@@ -38,9 +38,12 @@ velocity_4 = zeroInitVelocity(hidden_layer_3_size,output_layer_size);
 
 %% Training Parameters
 lambda = 0.005;
-step_size = 0.01;
+step_size = 0.3;
 
 %% Training the network
 activation = 0;
 alpha_decay = 0;
-[training_loss, test_loss, test_acc] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+
+%% Getting the top three estimate
+[estimate_value , estimates] = getTopThreeEstimates(learnt_weight_1, learnt_weight_2 , learnt_weight_3, learnt_weight_4, activation,test_images);
