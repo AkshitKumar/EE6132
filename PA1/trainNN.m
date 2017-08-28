@@ -1,4 +1,4 @@
-function [training_loss,test_loss,test_acc] = trainNN(num_iter,train_images,train_labels,test_images,test_labels,activation,lambda,alpha,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size)
+function [training_loss,test_loss,test_acc] = trainNN(num_iter,train_images,train_labels,test_images,test_labels,activation,lambda,alpha,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4)
     training_loss = [];
     test_loss = [];
     test_acc = [];
@@ -10,7 +10,7 @@ function [training_loss,test_loss,test_acc] = trainNN(num_iter,train_images,trai
         if(alpha_decay == 1 && mod(i,250) == 0)
             alpha = 0.85 * alpha; % Decay the alpha
         end
-        [weight_matrix_1, weight_matrix_2 , weight_matrix_3, weight_matrix_4] = updateWeightMatrix(weight_matrix_1,weight_grad_1,weight_matrix_2,weight_grad_2,weight_matrix_3,weight_grad_3,weight_matrix_4,weight_grad_4,alpha);
+        [weight_matrix_1, weight_matrix_2 , weight_matrix_3, weight_matrix_4,velocity_1,velocity_2,velocity_3,velocity_4] = updateWeightMatrix(weight_matrix_1,weight_grad_1,weight_matrix_2,weight_grad_2,weight_matrix_3,weight_grad_3,weight_matrix_4,weight_grad_4,alpha,velocity_1,velocity_2,velocity_3,velocity_4);
         training_loss = [training_loss ; train_loss];
         if mod(i,200) == 0
             [loss, acc] = calculateTestLoss(test_images',test_labels,output_layer_size,activation,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4);
@@ -18,7 +18,5 @@ function [training_loss,test_loss,test_acc] = trainNN(num_iter,train_images,trai
             test_acc = [test_acc; acc];
         end
     end
-
-
 end
 
