@@ -1,12 +1,15 @@
 %% Loading the data
-sigmoid_tl_no_decay = load('sigmoid_s1_tl_no_decay.mat');
-sigmoid_testl_no_decay = load('sigmoid_s1_testl_no_decay.mat');
-sigmoid_testacc_no_decay = load('sigmoid_s1_testacc_no_decay.mat');
+case1 = load('case1_03.mat');
+case2 = load('case2_03.mat');
+case3 = load('case3_03.mat');
+case4 = load('case4_03.mat');
 
-sigmoid_tl_decay = load('sigmoid_s1_tl_decay.mat');
-sigmoid_testl_decay = load('sigmoid_s1_testl_decay.mat');
-sigmoid_testacc_decay = load('sigmoid_s1_testacc_decay.mat');
-
-x = length(sigmoid_tl_no_decay.training_loss);
-plot(1:x,sigmoid_tl_no_decay.training_loss,1:x,sigmoid_tl_decay.training_loss);
-legend('No Decay', 'Decay');
+%% Plotting the training loss function
+%%% Constant Learning Rate comparison
+figure();
+t = 1 : length(case1.training_loss);
+plot(t,case1.training_loss,t,case3.training_loss);
+title('Comparison of Sigmoid and ReLu for Constant Learning Rate');
+xlabel('Iterations');
+ylabel('Training Loss');
+legend('Sigmoid','ReLu');
