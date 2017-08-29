@@ -41,6 +41,7 @@ lambda = 0.005;
 step_size = 0.1;
 
 %% Training the network
+%{
 %%% Case 1 - Sigmoid with no alpha decay
 activation = 0;
 alpha_decay = 0;
@@ -67,3 +68,34 @@ alpha_decay = 1;
 [training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
 [estimate_value , estimates] = getTopThreeEstimates(learnt_weight_1, learnt_weight_2 , learnt_weight_3, learnt_weight_4, activation,test_images);
 save 'case4_01.mat' training_loss test_loss test_acc estimate_value estimates
+%}
+alpha_decay = 0;
+%%% Case 1 - Sigmoid/Relu with 0.1 learning rate
+step_size = 0.1;
+activation = 0;
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+save 'case_01_sigmoid' training_loss test_loss test_acc;
+
+activation = 1;
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+save 'case_01_relu' training_loss test_loss test_acc;
+
+%%% Case 2 - Sigmoid/Relu with 0.01 learning rate
+step_size = 0.01;
+activation = 0;
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+save 'case_001_sigmoid' training_loss test_loss test_acc;
+
+activation = 1;
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+save 'case_001_relu' training_loss test_loss test_acc;
+
+%%% Case 3 - Sigmoid/Relu with 0.001 learning rate
+step_size = 0.001;
+activation = 0;
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+save 'case_0001_sigmoid' training_loss test_loss test_acc;
+
+activation = 1;
+[training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
+save 'case_0001_relu' training_loss test_loss test_acc;
