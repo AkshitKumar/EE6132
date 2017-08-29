@@ -38,7 +38,7 @@ velocity_4 = zeroInitVelocity(hidden_layer_3_size,output_layer_size);
 
 %% Training Parameters
 lambda = 0.005;
-step_size = 0.3;
+step_size = 0.1;
 
 %% Training the network
 %%% Case 1 - Sigmoid with no alpha decay
@@ -46,24 +46,24 @@ activation = 0;
 alpha_decay = 0;
 [training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
 [estimate_value , estimates] = getTopThreeEstimates(learnt_weight_1, learnt_weight_2 , learnt_weight_3, learnt_weight_4, activation,test_images);
-save 'case1_03.mat' training_loss test_loss test_acc estimate_value estimates
+save 'case1_01.mat' training_loss test_loss test_acc estimate_value estimates
 
 
 %%% Case 2 - Sigmoid with alpha decay
 alpha_decay = 1;
 [training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
 [estimate_value , estimates] = getTopThreeEstimates(learnt_weight_1, learnt_weight_2 , learnt_weight_3, learnt_weight_4, activation,test_images);
-save 'case2_03.mat' training_loss test_loss test_acc estimate_value estimates
+save 'case2_01.mat' training_loss test_loss test_acc estimate_value estimates
 
 %%% Case 3 - ReLu with no alpha decay
 activation = 1;
 alpha_decay = 0;
 [training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
 [estimate_value , estimates] = getTopThreeEstimates(learnt_weight_1, learnt_weight_2 , learnt_weight_3, learnt_weight_4, activation,test_images);
-save 'case3_03.mat' training_loss test_loss test_acc estimate_value estimates
+save 'case3_01.mat' training_loss test_loss test_acc estimate_value estimates
 
 %%% Case 4 - ReLu with alpha decay
 alpha_decay = 1;
 [training_loss, test_loss, test_acc, learnt_weight_1, learnt_weight_2, learnt_weight_3, learnt_weight_4] = trainNN(8000,train_images,train_labels,test_images,test_labels,activation,lambda,step_size,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4);
 [estimate_value , estimates] = getTopThreeEstimates(learnt_weight_1, learnt_weight_2 , learnt_weight_3, learnt_weight_4, activation,test_images);
-save 'case4_03.mat' training_loss test_loss test_acc estimate_value estimates
+save 'case4_01.mat' training_loss test_loss test_acc estimate_value estimates
