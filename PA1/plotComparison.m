@@ -32,7 +32,7 @@ title('Comparison of Sigmoid and ReLu for Scheduled Learning Rate');
 xlabel('Iterations');
 ylabel('Test Accuracy');
 legend('Sigmoid','ReLu');
-%}
+
 
 %% Plotting the comparison between schedule and constant
 figure();
@@ -82,4 +82,65 @@ title('Comparison of Scheduled Rate vs Constant Rate for ReLu Function')
 xlabel('Iterations');
 ylabel('Test Accuracy');
 legend('Constant Rate','Scheduled Rate');
+%}
+
+%% Plotting of comparison of learning rates 
+case_01_sigmoid = load('case_01_sigmoid.mat');
+case_01_relu = load('case_01_relu.mat');
+
+case_001_sigmoid = load('case_001_sigmoid.mat');
+case_001_relu = load('case_001_relu.mat');
+
+case_0001_sigmoid = load('case_0001_sigmoid.mat');
+case_0001_relu = load('case_0001_relu.mat');
+
+figure();
+subplot(2,1,1);
+t = 1:length(case_01_sigmoid.training_loss);
+plot(t,case_01_sigmoid.training_loss,t,case_001_sigmoid.training_loss,t,case_0001_sigmoid.training_loss);
+title('Comparison of Different Learning Rates with Sigmoid Activation');
+xlabel('Iterations');
+ylabel('Training Loss');
+legend('lr = 0.1','lr=0.01','lr=0.001');
+
+subplot(2,1,2);
+plot(t,case_01_relu.training_loss,t,case_001_relu.training_loss,t,case_0001_relu.training_loss);
+title('Comparison of Different Learning Rates with ReLu Activation');
+xlabel('Iterations');
+ylabel('Training Loss');
+legend('lr = 0.1','lr=0.01','lr=0.001');
+
+figure();
+subplot(2,1,1);
+t = 1:length(case_01_sigmoid.test_loss);
+plot(t,case_01_sigmoid.test_loss,t,case_001_sigmoid.test_loss,t,case_0001_sigmoid.test_loss);
+title('Comparison of Different Learning Rates with Sigmoid Activation');
+xlabel('Iterations');
+ylabel('Test Loss');
+legend('lr = 0.1','lr=0.01','lr=0.001');
+
+subplot(2,1,2);
+plot(t,case_01_relu.test_loss,t,case_001_relu.test_loss,t,case_0001_relu.test_loss);
+title('Comparison of Different Learning Rates with ReLu Activation');
+xlabel('Iterations');
+ylabel('Test Loss');
+legend('lr = 0.1','lr=0.01','lr=0.001');
+
+
+
+figure();
+subplot(2,1,1);
+t = 1:length(case_01_sigmoid.test_acc);
+plot(t,case_01_sigmoid.test_acc,t,case_001_sigmoid.test_acc,t,case_0001_sigmoid.test_acc);
+title('Comparison of Different Learning Rates with Sigmoid Activation');
+xlabel('Iterations');
+ylabel('Test Accuracy');
+legend('lr = 0.1','lr=0.01','lr=0.001');
+
+subplot(2,1,2);
+plot(t,case_01_relu.test_acc,t,case_001_relu.test_acc,t,case_0001_relu.test_acc);
+title('Comparison of Different Learning Rates with ReLu Activation');
+xlabel('Iterations');
+ylabel('Test Accuracy');
+legend('lr = 0.1','lr=0.01','lr=0.001');
 
