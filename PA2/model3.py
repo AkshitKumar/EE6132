@@ -30,6 +30,7 @@ W_fc2 = weight_variable([500,10])
 b_fc2 = bias_variable([10])
 
 y_conv = tf.matmul(h_fc1,W_fc2) + b_fc2
+y = tf.nn.softmax(y_conv)
 
 regularize = tf.nn.l2_loss(W_conv1) + tf.nn.l2_loss(W_conv2) + tf.nn.l2_loss(W_fc1) + tf.nn.l2_loss(W_fc2)
 

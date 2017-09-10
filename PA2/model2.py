@@ -25,6 +25,7 @@ b_fc1 = bias_variable([10])
 
 h_pool2_flat = tf.reshape(h_pool2,[-1,7*7*32])
 y_conv = tf.matmul(h_pool2_flat, W_fc1) + b_fc1
+y = tf.nn.softmax(y_conv)
 
 regularize = tf.nn.l2_loss(W_conv1) + tf.nn.l2_loss(W_conv2) + tf.nn.l2_loss(W_fc1)
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_,logits=y_conv) + 0.01 * regularize)
