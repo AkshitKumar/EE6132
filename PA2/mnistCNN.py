@@ -60,8 +60,9 @@ with tf.Session() as sess:
   for i in range(8000):
     batch = mnist.train.next_batch(64)
     if i % 100 == 0:
+      training_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
       train_accuracy = accuracy.eval(feed_dict={x: batch[0], y_: batch[1]})
-      print('step %d, training accuracy %g' % (i, train_accuracy))
+      print('step %d, training accuracy %g training_loss %g' % (i, train_accuracy, training_loss))
     train_step.run(feed_dict={x: batch[0], y_: batch[1]})
 
   print('test accuracy %g' % accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
