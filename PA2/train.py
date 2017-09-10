@@ -1,6 +1,7 @@
 import tensorflow as tf
 from loadData import loadMNISTData
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import ImageGrid
 import numpy as np
 
 mnist = loadMNISTData(validationSize = 10000)
@@ -28,6 +29,25 @@ with tf.Session() as sess:
 			print ('Model 1 Step : %d Validation Loss : %g') % (i,valid_loss)
 		train_step.run(feed_dict={x:batch[0], y_:batch[1]})
 	print('Test Accuracy %g' % accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+
+image_list = mnist.test.images[0:19]
+image_list_labels = mnist.test.labels[0:19]
+fig = plt.figure(1, (12.,12.))
+grid = ImageGrid(fig, 111, 
+				nrows_ncols=(4,5),
+				axes_pad = 0.5)
+prob = y.eval(feed_dict={x:image_list})
+pred_list = np.zeros(len(image_list)).astype(int)
+
+for i in range(len(prob)):
+	pred_list[i] = np.argmax(prob[i])
+	image = image_list[i].reshape(28,28)
+	grid[i].imshow(image)
+	grid[i].set_title('True Label : {0} \n Predicted Label : {0}').format(image_list_labels[i].argmax,pred_list[i])
+
+plt.show()
+
+'''
 
 from model2 import *
 
@@ -75,3 +95,4 @@ plt.ylabel('Cross Entropy Validation Loss')
 plt.legend(["Model 1","Model 2","Model 3"])
 plt.title('Plot of Validation Loss vs Epoch for different models')
 plt.show()
+'''
