@@ -27,7 +27,7 @@ with tf.Session() as sess:
 		batch = mnist.train.next_batch(64)
 		train_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
 		model1_training_loss.append(train_loss)
-		if i%100 == 0:	
+		if i%100 == 0:
 			valid_loss = cross_entropy.eval(feed_dict={x: mnist.validation.images, y_: mnist.validation.labels})
 			model1_validation_loss.append(valid_loss)
 			print ('Model 1 Step : %d Validation Loss : %g') % (i,valid_loss)
@@ -36,8 +36,8 @@ with tf.Session() as sess:
 
 	image_list = mnist.test.images[0:20]
 	image_list_labels = mnist.test.labels[0:20]
-	
-	grid = ImageGrid(fig1, 111, 
+
+	grid = ImageGrid(fig1, 111,
 				nrows_ncols=(4,5),
 				axes_pad = 0.5)
 	prob = y.eval(feed_dict={x:image_list})
@@ -58,17 +58,17 @@ with tf.Session() as sess:
 		batch = mnist.train.next_batch(64)
 		train_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
 		model2_training_loss.append(train_loss)
-		if i%100 == 0:	
+		if i%100 == 0:
 			valid_loss = cross_entropy.eval(feed_dict={x: mnist.validation.images, y_: mnist.validation.labels})
 			model2_validation_loss.append(valid_loss)
 			print ('Model 2 Step : %d Validation Loss : %g') % (i,valid_loss)
 		train_step.run(feed_dict={x:batch[0], y_:batch[1]})
 	print('Test Accuracy %g' % accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
-	
+
 	image_list = mnist.test.images[0:20]
 	image_list_labels = mnist.test.labels[0:20]
-	
-	grid = ImageGrid(fig2, 111, 
+
+	grid = ImageGrid(fig2, 111,
 				nrows_ncols=(4,5),
 				axes_pad = 0.5)
 	prob = y.eval(feed_dict={x:image_list})
@@ -82,22 +82,26 @@ with tf.Session() as sess:
 
 from model3 import *
 
+saver = tf.train.Saver()
+
 with tf.Session() as sess:
 	sess.run(tf.global_variables_initializer())
 	for i in range(8000):
 		batch = mnist.train.next_batch(64)
 		train_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
 		model3_training_loss.append(train_loss)
-		if i%100 == 0:	
+		if i%100 == 0:
 			valid_loss = cross_entropy.eval(feed_dict={x: mnist.validation.images, y_: mnist.validation.labels})
 			model3_validation_loss.append(valid_loss)
 			print ('Model 3 Step : %d Validation Loss : %g') % (i,valid_loss)
 		train_step.run(feed_dict={x:batch[0], y_:batch[1]})
+	save_path = saver.save(sess , "/tmp/model.ckpt")
+	
 	print('Test Accuracy %g' % accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 	image_list = mnist.test.images[0:20]
 	image_list_labels = mnist.test.labels[0:20]
-	
-	grid = ImageGrid(fig3, 111, 
+
+	grid = ImageGrid(fig3, 111,
 				nrows_ncols=(4,5),
 				axes_pad = 0.5)
 	prob = y.eval(feed_dict={x:image_list})
