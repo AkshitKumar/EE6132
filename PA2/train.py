@@ -23,7 +23,7 @@ from model1 import *
 
 with tf.Session() as sess:
 	sess.run(tf.global_variables_initializer())
-	for i in range(8000):
+	for i in range(10000):
 		batch = mnist.train.next_batch(64)
 		train_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
 		model1_training_loss.append(train_loss)
@@ -54,7 +54,7 @@ from model2 import *
 
 with tf.Session() as sess:
 	sess.run(tf.global_variables_initializer())
-	for i in range(8000):
+	for i in range(10000):
 		batch = mnist.train.next_batch(64)
 		train_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
 		model2_training_loss.append(train_loss)
@@ -82,11 +82,11 @@ with tf.Session() as sess:
 
 from model3 import *
 
-saver = tf.train.Saver()
+saver = tf.train.Saver([W_conv1,b_conv1,W_conv2,b_conv2,W_fc1,b_fc1,W_fc2,b_fc2])
 
 with tf.Session() as sess:
 	sess.run(tf.global_variables_initializer())
-	for i in range(8000):
+	for i in range(10000):
 		batch = mnist.train.next_batch(64)
 		train_loss = cross_entropy.eval(feed_dict={x: batch[0], y_: batch[1]})
 		model3_training_loss.append(train_loss)
