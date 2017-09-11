@@ -95,7 +95,7 @@ with tf.Session() as sess:
 			model3_validation_loss.append(valid_loss)
 			print ('Model 3 Step : %d Validation Loss : %g') % (i,valid_loss)
 		train_step.run(feed_dict={x:batch[0], y_:batch[1]})
-	save_path = saver.save(sess , "/tmp/model.ckpt")
+	save_path = saver.save(sess ,"model.ckpt")
 	
 	print('Test Accuracy %g' % accuracy.eval(feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
 	image_list = mnist.test.images[0:20]
