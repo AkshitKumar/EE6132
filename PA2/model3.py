@@ -8,6 +8,7 @@ y_ = tf.placeholder(tf.float32 , shape = [None,10], name = "y_")
 W_conv1 = weight_variable([3,3,1,32],name = "W_conv1")
 b_conv1 = bias_variable([32], name = "b_conv1")
 
+
 # Reshaping the image
 x_image = tf.reshape(x, [-1,28,28,1], name = "x_image")
 

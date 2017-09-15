@@ -1,4 +1,4 @@
-function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,activation,num_labels,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4)
+ function [L,grad_1,grad_2,grad_3,grad_4] = calculateGradient(X,y,activation,num_labels,lambda,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4)
     %% Number of data points
     m = size(X,1);
 

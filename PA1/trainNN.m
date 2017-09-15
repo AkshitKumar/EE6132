@@ -1,4 +1,4 @@
-function [training_loss,test_loss,test_acc,learnt_weight_1,learnt_weight_2,learnt_weight_3 ,learnt_weight_4] = trainNN(num_iter,train_images,train_labels,test_images,test_labels,activation,lambda,alpha,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4)
+   function [training_loss,test_loss,test_acc,learnt_weight_1,learnt_weight_2,learnt_weight_3 ,learnt_weight_4] = trainNN(num_iter,train_images,train_labels,test_images,test_labels,activation,lambda,alpha,weight_matrix_1,weight_matrix_2,weight_matrix_3,weight_matrix_4,alpha_decay,output_layer_size,velocity_1,velocity_2,velocity_3,velocity_4)
     training_loss = [];
     test_loss = [];
     test_acc = [];
