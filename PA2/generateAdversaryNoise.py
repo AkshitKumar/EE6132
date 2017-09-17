@@ -66,7 +66,7 @@ def init_noise():
 def optimize(num_iterations, adversary_target_cls = None):
 	for i in range(num_iterations):
 		x_batch, y_true_batch = mnist.train.next_batch(train_batch_size)
-		
+
 		if adversary_target_cls is not None:
 			y_true_batch = np.zeros_like(y_true_batch)
 			y_true_batch[:, adversary_target_cls] = 1.0
@@ -76,9 +76,9 @@ def optimize(num_iterations, adversary_target_cls = None):
 			y_test[:,adversary_target_cls] = 1.0
 			feed_dict_validation = {x : mnist.validation.images , y_true : y_valid}
 			feed_dict_test = {x : mnist.test.images , y_true : y_test}
-	
+
 		feed_dict_train = {x : x_batch , y_true : y_true_batch}
-			
+
 		if adversary_target_cls is None:
 			session.run(optimizer, feed_dict=feed_dict_train)
 			print "Training Iteration : %g" %(i)
@@ -88,14 +88,14 @@ def optimize(num_iterations, adversary_target_cls = None):
 			train_loss = session.run(loss_adversary, feed_dict = feed_dict_train)
 			training_loss.append(train_loss)
 			print "Training Loss %g" %(train_loss)
-		
+
 		if i % 100 == 0 and adversary_target_cls is not None:
 			valid_loss = session.run(loss_adversary, feed_dict = feed_dict_validation)
 			validation_loss.append(valid_loss)
 			test_acc = session.run(accuracy, feed_dict = feed_dict_test)
 			test_accuracy.append(test_acc)
 			print "Test Accuracy %g" %(test_acc)
-		
+
 def get_noise():
 	noise = session.run(x_noise)
 	return np.squeeze(noise)
