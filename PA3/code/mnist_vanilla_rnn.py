@@ -37,7 +37,7 @@ prediction = tf.nn.softmax(logits)
 # Define the loss and the optimizer
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = Y))
 optimizer = tf.train.AdamOptimizer(learning_rate = learning_rate)
-train_op = optimizer.minimize(loss)
+train = optimizer.minimize(loss)
 
 # Evaluate model 
 correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(Y, 1))
@@ -52,3 +52,14 @@ with tf.Session() as sess:
 	for step in range(1,training_steps + 1):
 		batch_x , batch_y = mnist.train.next_batch(batch_size)
 		batch_x = batch_x.reshape((batch_size, timesteps, num_input))
+		sess.run(train, feed_dict = {X : batch_x, Y : batch_y})
+		if step % display_step == 0 or step == 1:
+			training_loss, acc = sess.run([loss,accuracy], feed_dict = {X:batch_x , Y:batch_y})
+			print("Step " + str(step) + ", Minibatch Loss= " + \
+                  "{:.4f}".format(loss) + ", Training Accuracy= " + \
+                  "{:.3f}".format(acc))
+	print("Testing Accuracy:", \
+        sess.run(accuracy, feed_dict={X: mnist.test.images , Y: mnist.test.labels}))
+
+
+
