@@ -37,13 +37,13 @@ Y = tf.placeholder("float", [None , num_classes])
 weights = {'out': tf.Variable(tf.random_normal([num_hidden, num_classes]))}
 biases = {'out': tf.Variable(tf.random_normal([num_classes]))}
 
-def vanilla_rnn(x,weights,biases):
+def lstm_rnn(x,weights,biases):
 	x = tf.unstack(x, timesteps, 1)
-	rnn_cell = rnn.BasicRNNCell(num_hidden)
-	outputs, states = rnn.static_rnn(rnn_cell, x, dtype = tf.float32)
+	lstm_cell = rnn.BasicLSTMCell(num_hidden, forget_bias=1.0)
+	outputs, states = rnn.static_rnn(lstm_cell, x, dtype=tf.float32)
 	return tf.matmul(outputs[-1],weights['out']) + biases['out']
 
-logits = vanilla_rnn(X,weights,biases)
+logits = lstm_rnn(X,weights,biases)
 prediction = tf.nn.softmax(logits)
 
 # Define the loss and the optimizer
@@ -95,13 +95,13 @@ with tf.Session() as sess:
 		grid[i].imshow(image)
 		grid[i].set_title('True:{0} \n Predicted:{1}'.format(np.argmax(image_list_labels[i]),pred_list[i]))
 
-	fig1.savefig('plots/vanilla_rnn_prediction.png')
+	fig1.savefig('plots/lstm_rnn_prediction.png')
 
 training_loss = np.array(training_loss)
 training_accuracy = np.array(training_accuracy)
 validation_loss = np.array(validation_loss)
 validation_accuracy = np.array(validation_accuracy)
 
-np.savez('vanilla_rnn.npz', tl = training_loss  , ta = training_accuracy , vl = validation_loss , va = validation_accuracy)
+np.savez('lstm_rnn.npz', tl = training_loss  , ta = training_accuracy , vl = validation_loss , va = validation_accuracy)
 
 plt.show()
