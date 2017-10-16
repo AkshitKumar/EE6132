@@ -58,7 +58,8 @@ rnn_outputs, rnn_states = tf.nn.dynamic_rnn(lstm_cell, inputs, initial_state=ini
 projection = lambda x: layers.linear(x, num_outputs=OUTPUT_SIZE, activation_fn=tf.nn.sigmoid)
 prediction = tf.map_fn(projection, rnn_outputs)
 
-loss = -(outputs * tf.log(prediction + 1e-6) + (1.0 - outputs) * tf.log(1.0 - prediction + 1e-6))
+#loss = -(outputs * tf.log(prediction + 1e-6) + (1.0 - outputs) * tf.log(1.0 - prediction + 1e-6))
+loss = np.sum(np.sum(np.square(outputs - prediction)))
 loss = tf.reduce_mean(loss)
 
 train = tf.train.AdamOptimizer(learning_rate = 1e-2).minimize(loss)
@@ -90,4 +91,4 @@ training_accruracy = np.array(training_accruracy)
 testing_loss = np.array(testing_loss)
 testing_accuracy = np.array(testing_accuracy)
 
-np.savez("data/" + str(NUM_BITS) + "_digits.npz", tl = training_loss , ta = training_accruracy , tsl = testing_loss, tsa = testing_accuracy)
+#np.savez("data/" + str(NUM_BITS) + "_digits.npz", tl = training_loss , ta = training_accruracy , tsl = testing_loss, tsa = testing_accuracy)
