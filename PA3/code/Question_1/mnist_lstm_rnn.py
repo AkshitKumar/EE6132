@@ -102,6 +102,6 @@ training_accuracy = np.array(training_accuracy)
 validation_loss = np.array(validation_loss)
 validation_accuracy = np.array(validation_accuracy)
 
-np.savez('lstm_rnn.npz', tl = training_loss  , ta = training_accuracy , vl = validation_loss , va = validation_accuracy)
+np.savez('data/lstm_rnn.npz', tl = training_loss  , ta = training_accuracy , vl = validation_loss , va = validation_accuracy)
 
 plt.show()

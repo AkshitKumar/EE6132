@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-vanilla_rnn = np.load('vanilla_rnn.npz')
-lstm_rnn = np.load('lstm_rnn.npz')
-bi_rnn = np.load('bi_rnn.npz')
+vanilla_rnn = np.load('data/vanilla_rnn.npz')
+lstm_rnn = np.load('data/lstm_rnn.npz')
+bi_rnn = np.load('data/bi_rnn.npz')
 
 fig1 = plt.figure(1)
 plt.plot(np.arange(vanilla_rnn['tl'].shape[0]),vanilla_rnn['tl'],np.arange(lstm_rnn['tl'].shape[0]),lstm_rnn['tl'], np.arange(bi_rnn

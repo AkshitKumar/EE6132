@@ -91,4 +91,4 @@ training_accruracy = np.array(training_accruracy)
 testing_loss = np.array(testing_loss)
 testing_accuracy = np.array(testing_accuracy)
 
-#np.savez("data/" + str(NUM_BITS) + "_digits.npz", tl = training_loss , ta = training_accruracy , tsl = testing_loss, tsa = testing_accuracy)
+np.savez("mse_data/" + str(NUM_BITS) + "_digits.npz", tl = training_loss , ta = training_accruracy , tsl = testing_loss, tsa = testing_accuracy)
