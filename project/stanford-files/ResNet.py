@@ -52,6 +52,7 @@ print (labels[y_train[sample]])
 # In[4]:
 
 tf.reset_default_graph()
+'''
 with tf.device('/gpu:0'):
     X = tf.placeholder(tf.float32, [None, res, res, 1])
     y = tf.placeholder(tf.int64, [None])
@@ -68,6 +69,25 @@ with tf.device('/gpu:0'):
     extra_update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
     with tf.control_dependencies(extra_update_ops):
         train_step = optimizer.minimize(mean_loss)
+'''
+
+X = tf.placeholder(tf.float32, [None, res, res, 1])
+y = tf.placeholder(tf.int64, [None])
+is_training = tf.placeholder(tf.bool)
+lr = tf.placeholder(tf.float32)
+reg = tf.placeholder(tf.float32)
+
+y_out = models.resnet(X, y, layer_depth=3, num_classes=num_classes, is_training=is_training, reg=reg)
+print (y_out.shape)
+mean_loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=tf.one_hot(y, num_classes), logits=y_out))
+optimizer = tf.train.AdamOptimizer(learning_rate=lr)
+
+    # batch normalization in tensorflow requires this extra dependency
+extra_update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+with tf.control_dependencies(extra_update_ops):
+    train_step = optimizer.minimize(mean_loss)
+
+
 reg_val = 1e-2
 learning_rate = 1e-3
 
