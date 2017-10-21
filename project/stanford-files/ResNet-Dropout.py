@@ -1,11 +1,7 @@
 
-# coding: utf-8
-
-# In[1]:
-
 from __future__ import division
 
-import datautils
+import datautils2
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -13,6 +9,7 @@ import tensorflow as tf
 import math
 import models
 
+'''
 get_ipython().magic(u'matplotlib inline')
 plt.rcParams['figure.figsize'] = (5.0, 5.0) # set default size of plots
 plt.rcParams['image.interpolation'] = 'nearest'
@@ -20,7 +17,7 @@ plt.rcParams['image.cmap'] = 'gray'
 
 get_ipython().magic(u'load_ext autoreload')
 get_ipython().magic(u'autoreload 2')
-
+'''
 
 # In[ ]:
 
@@ -29,7 +26,7 @@ num_classes = 250 #250
 res = 128
 
 tic = time.clock()
-X_train, y_train, X_val, y_val, X_test, y_test, labels = datautils.get_data(num_classes=num_classes, res=128, flip=True)
+X_train, y_train, X_val, y_val, X_test, y_test, labels = datautils2.get_data(num_classes=num_classes, res=128, flip=True)
 toc = time.clock()
 print ("Read {} images in {:5} seconds".format(X_train.shape[0] + X_val.shape[0] + X_test.shape[0], toc - tic))
 print ("X_train: ", X_train.shape)
@@ -141,8 +138,6 @@ def run_model(session, predict, loss_val, Xd, yd,
     return total_loss,total_correct
 
 
-# In[9]:
-
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 train_losses = []
@@ -151,9 +146,7 @@ val_losses = []
 val_acc = []
 
 
-# In[ ]:
-
-epochs = 1
+epochs = 15
 reg_val = 1e-1
 learning_rate = 1e-3
 for i in range(epochs):
@@ -163,7 +156,7 @@ for i in range(epochs):
                                  Xd=X_train,
                                  yd=y_train,
                                  epochs=1,
-                                 batch_size=256,
+                                 batch_size=128,
                                  print_every=5,
                                  training=train_step,
                                  plot_losses=False)
@@ -182,9 +175,13 @@ for i in range(epochs):
     val_losses.append(loss)
     val_acc.append(acc)
 
+train_losses = np.array(train_losses)
+train_acc = np.array(train_acc)
+val_losses = np.array(val_losses)
+val_acc = np.array(val_acc)
 
-# In[8]:
-
+np.savez('dropout_data.npz', train_losses, train_acc, val_losses, val_acc)
+'''
 plt.plot(train_losses, label='Train')
 plt.plot(val_losses, label='Val')
 plt.grid(True)
@@ -202,9 +199,4 @@ plt.xlabel('Epoch')
 plt.ylabel('Accuracy')
 plt.legend()
 plt.show()
-
-
-# In[ ]:
-
-
-
+'''

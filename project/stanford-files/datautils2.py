@@ -66,17 +66,17 @@ def get_data(num_classes=250, res=128, flip=True, color_invert=True, center=Fals
                     train_index += 1
                     num_images += 1
                 if rotate_3:
-               	    X_train[train_index] = scipy.ndimage.interpolation.rotate(im_data,10,cval=0,reshape=False)
+               	    X_train[train_index] = scipy.ndimage.interpolation.rotate(im_data,5,cval=0,reshape=False)
                     train_index += 1
                     num_images += 1
-               	    X_train[train_index] = scipy.ndimage.interpolation.rotate(im_data,-10,cval=0,reshape=False)
+               	    X_train[train_index] = scipy.ndimage.interpolation.rotate(im_data,-5,cval=0,reshape=False)
                     train_index += 1
                     num_images += 1
                     if flip:					
-                        X_train[train_index] = scipy.ndimage.interpolation.rotate(flipped,10,cval=0,reshape=False)
+                        X_train[train_index] = scipy.ndimage.interpolation.rotate(flipped,5,cval=0,reshape=False)
                         train_index += 1
                         num_images += 1
-               	        X_train[train_index] = scipy.ndimage.interpolation.rotate(flipped,-10,cval=0,reshape=False)
+               	        X_train[train_index] = scipy.ndimage.interpolation.rotate(flipped,-5,cval=0,reshape=False)
                         train_index += 1
                         num_images += 1				
             elif num_images < num_train + num_val:
