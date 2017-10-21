@@ -38,7 +38,7 @@ print ("y_test: ", y_test.shape)
 
 
 # In[9]:
-
+'''
 # Plot a random image
 sample = np.random.randint(X_train.shape[0])
 sample = 0
@@ -47,7 +47,7 @@ plt.show()
 plt.imshow(X_train[sample + (1 if sample % 2 == 0 else -1)].reshape(128, 128))
 plt.show()
 print (labels[y_train[sample]])
-
+'''
 
 # In[7]:
 
