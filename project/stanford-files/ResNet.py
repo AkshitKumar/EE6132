@@ -180,7 +180,7 @@ for i in range(epochs):
                                  Xd=X_train,
                                  yd=y_train,
                                  epochs=1,
-                                 batch_size=256,
+                                 batch_size=128,
                                  print_every=25 ,
                                  training=train_step,
                                  plot_losses=False)
