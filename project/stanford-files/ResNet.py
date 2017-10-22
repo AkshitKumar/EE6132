@@ -1,6 +1,6 @@
 from __future__ import division
 
-import datautils2
+import datautils
 import numpy as np
 import matplotlib.pyplot as plt
 import time
@@ -22,7 +22,7 @@ num_classes = 250 #250
 res = 128
 
 tic = time.clock()
-X_train, y_train, X_val, y_val, X_test, y_test, labels = datautils2.get_data(num_classes=num_classes, res=128, flip=True)
+X_train, y_train, X_val, y_val, X_test, y_test, labels = datautils.get_data(num_classes=num_classes, res=128, flip=True)
 toc = time.clock()
 print ("Read {} images in {:5} seconds".format(X_train.shape[0] + X_val.shape[0] + X_test.shape[0], toc - tic))
 print ("X_train: ", X_train.shape)
@@ -89,7 +89,7 @@ with tf.control_dependencies(extra_update_ops):
 
 
 reg_val = 1e-2
-learning_rate = 1e-3
+learning_rate = 1e-4
 
 
 # In[5]:
@@ -204,7 +204,7 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('vanilla_resnet_inc_data.npz', train_losses, train_acc, val_losses, val_acc)
+np.savez('vanilla_resnet_data.npz', train_losses, train_acc, val_losses, val_acc)
 
 
 '''
