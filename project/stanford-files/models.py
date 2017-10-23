@@ -222,7 +222,7 @@ def resnet_dropout(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=T
     Input: 128x128x1
     Output: 64x64x64
     """
-    d0 = tf.layers.dropout(X, rate=0.2, training=is_training)
+    d0 = tf.layers.dropout(X, rate=0.5, training=is_training)
     c0 = tf.layers.conv2d(d0, 64, [7, 7], strides=[2, 2], padding='SAME', kernel_regularizer=l2_reg)
     c0 = tf.layers.batch_normalization(c0, training=is_training)
     match_dimensions = True
@@ -306,7 +306,7 @@ def resnet_dropout(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=T
     
     p1 = tf.layers.average_pooling2d(c0, (8, 8), (1,1))
     p1_flat = tf.reshape(p1, [-1, 512])
-    d1 = tf.layers.dropout(p1_flat, rate=0.2, training=is_training)
+    d1 = tf.layers.dropout(p1_flat, rate=0.5, training=is_training)
     y_out = tf.layers.dense(d1, num_classes, kernel_regularizer=l2_reg)
     
     return y_out

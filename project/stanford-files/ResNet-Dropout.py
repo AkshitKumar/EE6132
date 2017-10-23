@@ -69,7 +69,7 @@ extra_update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
 with tf.control_dependencies(extra_update_ops):
     train_step = optimizer.minimize(mean_loss)
 reg_val = 1e-2
-learning_rate = 1e-3
+learning_rate = 1e-4
 
 
 # In[8]:
@@ -147,8 +147,8 @@ val_acc = []
 
 
 epochs = 15
-reg_val = 1e-1
-learning_rate = 1e-3
+reg_val = 1e-2
+learning_rate = 1e-4
 for i in range(epochs):
     loss, acc = run_model(session=sess,
                                  predict=y_out,
@@ -180,7 +180,7 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('dropout_data.npz', train_losses, train_acc, val_losses, val_acc)
+np.savez('aggresive_dropout_data.npz', train_losses, train_acc, val_losses, val_acc)
 '''
 plt.plot(train_losses, label='Train')
 plt.plot(val_losses, label='Val')
