@@ -170,9 +170,9 @@ val_acc = []
 
 # In[7]:
 
-epochs = 15
-reg_val = 1e-1
-learning_rate = 1e-3
+epochs = 25
+reg_val = 1e-2
+learning_rate = 1e-4
 for i in range(epochs):
     loss, acc = run_model(session=sess,
                                  predict=y_out,
@@ -204,7 +204,7 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('vanilla_resnet_data.npz', train_losses, train_acc, val_losses, val_acc)
+np.savez('vanilla_resnet_25_data.npz', train_losses, train_acc, val_losses, val_acc)
 
 
 '''
