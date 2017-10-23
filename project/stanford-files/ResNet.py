@@ -2,7 +2,7 @@ from __future__ import division
 
 import datautils
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import time
 import tensorflow as tf
 import math
