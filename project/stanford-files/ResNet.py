@@ -170,7 +170,7 @@ val_acc = []
 
 # In[7]:
 
-epochs = 25
+epochs = 20
 reg_val = 1e-2
 learning_rate = 1e-4
 for i in range(epochs):
@@ -204,32 +204,4 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('vanilla_resnet_25_data.npz', train_losses, train_acc, val_losses, val_acc)
-
-
-'''
-# In[8]:
-
-plt.plot(train_losses, label='Train')
-plt.plot(val_losses, label='Val')
-plt.grid(True)
-plt.title('Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-plt.show()
-
-plt.plot(train_acc, label='Train')
-plt.plot(val_acc, label='Val')
-plt.grid(True)
-plt.title('Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend()
-plt.show()
-
-
-# In[ ]:
-
-'''
-
+np.savez('npzfiles/change_conv_size.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
