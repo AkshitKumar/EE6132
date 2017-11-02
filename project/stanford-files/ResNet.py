@@ -204,4 +204,4 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('npzfiles/change_conv_size.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
+np.savez('change_conv_size.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
