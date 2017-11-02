@@ -222,15 +222,15 @@ def resnet_dropout(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=T
     Input: 128x128x1
     Output: 64x64x64
     """
-    d0 = tf.layers.dropout(X, rate=0.5, training=is_training)
-    c0 = tf.layers.conv2d(d0, 64, [7, 7], strides=[2, 2], padding='SAME', kernel_regularizer=l2_reg)
+    d0 = tf.layers.dropout(X, rate=0.6, training=is_training)
+    c0 = tf.layers.conv2d(d0, 64, [15, 15], strides=[2, 2], padding='SAME', kernel_regularizer=l2_reg)
     c0 = tf.layers.batch_normalization(c0, training=is_training)
     match_dimensions = True
     for i in range(layer_depth):
-        c1 = tf.layers.conv2d(c0, 64, [3, 3], padding='SAME', kernel_regularizer=l2_reg) #conv
+        c1 = tf.layers.conv2d(c0, 64, [7, 7], padding='SAME', kernel_regularizer=l2_reg) #conv
         b1 = tf.layers.batch_normalization(c1, training=is_training) #bn
         h1 = tf.nn.relu(b1) #relu
-        c2 = tf.layers.conv2d(h1, 64, [3, 3], padding='SAME', kernel_regularizer=l2_reg) #conv
+        c2 = tf.layers.conv2d(h1, 64, [7, 7], padding='SAME', kernel_regularizer=l2_reg) #conv
         b2 = tf.layers.batch_normalization(c2, training=is_training) #bn
         r = c0 + b2
         c0 = tf.nn.relu(r)
@@ -241,13 +241,13 @@ def resnet_dropout(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=T
     """
     downsample = True
     for i in range(layer_depth):
-        c1 = tf.layers.conv2d(c0, 128, [3, 3], 
+        c1 = tf.layers.conv2d(c0, 128, [5, 5], 
                               strides=([2, 2] if downsample else [1, 1]),
                               padding='SAME',
                               kernel_regularizer=l2_reg)
         b1 = tf.layers.batch_normalization(c1, training=is_training) #bn
         h1 = tf.nn.relu(b1) #relu
-        c2 = tf.layers.conv2d(h1, 128, [3, 3], padding='SAME', kernel_regularizer=l2_reg) #conv
+        c2 = tf.layers.conv2d(h1, 128, [5, 5], padding='SAME', kernel_regularizer=l2_reg) #conv
         b2 = tf.layers.batch_normalization(c2, training=is_training) #bn
         if downsample:
             c0_proj = tf.layers.conv2d(c0, 128, [1, 1], padding='SAME', kernel_regularizer=l2_reg)
@@ -264,13 +264,13 @@ def resnet_dropout(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=T
     """
     downsample = True
     for i in range(layer_depth):
-        c1 = tf.layers.conv2d(c0, 256, [3, 3], 
+        c1 = tf.layers.conv2d(c0, 256, [5, 5], 
                               strides=([2, 2] if downsample else [1, 1]),
                               padding='SAME',
                               kernel_regularizer=l2_reg)
         b1 = tf.layers.batch_normalization(c1, training=is_training) #bn
         h1 = tf.nn.relu(b1) #relu
-        c2 = tf.layers.conv2d(h1, 256, [3, 3], padding='SAME', kernel_regularizer=l2_reg) #conv
+        c2 = tf.layers.conv2d(h1, 256, [5, 5], padding='SAME', kernel_regularizer=l2_reg) #conv
         b2 = tf.layers.batch_normalization(c2, training=is_training) #bn
         if downsample:
             c0_proj = tf.layers.conv2d(c0, 256, [1, 1], padding='SAME', kernel_regularizer=l2_reg)
