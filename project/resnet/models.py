@@ -60,7 +60,8 @@ def resnet(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=True):
         b2 = tf.layers.batch_normalization(c2, training=is_training) #bn
         if downsample:
             c0_proj = tf.layers.conv2d(c0, 128, [1, 1], padding='SAME', kernel_regularizer=l2_reg)
-            c0_proj = tf.layers.average_pooling2d(c0_proj, (2, 2), (2, 2))
+            #c0_proj = tf.layers.average_pooling2d(c0_proj, (2, 2), (2, 2))
+            c0_proj = tf.layers.max_pooling2d(c0_proj, (2, 2), (2, 2))
             r = c0_proj + b2
             downsample = False
         else:
@@ -83,7 +84,8 @@ def resnet(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=True):
         b2 = tf.layers.batch_normalization(c2, training=is_training) #bn
         if downsample:
             c0_proj = tf.layers.conv2d(c0, 256, [1, 1], padding='SAME', kernel_regularizer=l2_reg)
-            c0_proj = tf.layers.average_pooling2d(c0_proj, (2, 2), (2, 2))
+            #c0_proj = tf.layers.average_pooling2d(c0_proj, (2, 2), (2, 2))
+            c0_proj = tf.layers.max_pooling2d(c0_proj, (2, 2), (2, 2))
             r = c0_proj + b2
             downsample = False
         else:
@@ -106,19 +108,23 @@ def resnet(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=True):
         b2 = tf.layers.batch_normalization(c2, training=is_training) #bn
         if downsample:
             c0_proj = tf.layers.conv2d(c0, 512, [1, 1], padding='SAME', kernel_regularizer=l2_reg)
-            c0_proj = tf.layers.average_pooling2d(c0_proj, (2, 2), (2, 2))
+            #c0_proj = tf.layers.average_pooling2d(c0_proj, (2, 2), (2, 2))
+            c0_proj = tf.layers.max_pooling2d(c0_proj, (2, 2), (2, 2))
+            
             r = c0_proj + b2
             downsample = False
         else:
             r = c0 + b2
         c0 = tf.nn.relu(r)
     
-    p1 = tf.layers.average_pooling2d(c0, (8, 8), (1,1))
+    #p1 = tf.layers.average_pooling2d(c0, (8, 8), (1,1))
+    p1 = tf.layers.max_pooling2d(c0, (8, 8), (1,1))
     p1_flat = tf.reshape(p1, [-1, 512])
     y_out = tf.layers.dense(p1_flat, num_classes, kernel_regularizer=l2_reg)
     
     return y_out
 
+'''
 def resnet(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=True):
     # RESnet-ish
     l2_reg = tf.contrib.layers.l2_regularizer(reg)
@@ -213,6 +219,7 @@ def resnet(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=True):
     y_out = tf.layers.dense(p1_flat, num_classes, kernel_regularizer=l2_reg)
     
     return y_out
+'''
 
 def resnet_dropout(X, y, layer_depth=4, num_classes=250, reg=1e-2, is_training=True):
     # RESnet-ish
