@@ -147,7 +147,7 @@ def run_model(session, predict, loss_val, Xd, yd,
             iter_cnt += 1
         total_correct = correct/Xd.shape[0]
         total_loss = np.sum(losses)/Xd.shape[0]
-        print("Epoch {2}, Overall loss = {0:.3g} and accuracy of {1:.3g}"                              .format(total_loss,total_correct,e+1))
+        print("Epoch {2}, Overall loss = {0:.3g} and accuracy of {1:.3g}".format(e+1,total_loss,total_correct))
         if plot_losses:
             plt.plot(losses)
             plt.grid(True)
@@ -204,4 +204,4 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('change_conv_size.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
+np.savez('large_filter_size_max_pooling.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
