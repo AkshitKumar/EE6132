@@ -180,4 +180,4 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('change_size_dropout_data.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
+np.savez('change_size_less_dropout_data.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
