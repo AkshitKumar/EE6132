@@ -21,7 +21,7 @@ batch_size = 64
 # network parameters
 num_input = 128
 timesteps = 128
-num_hidden = 128
+num_hidden = 500
 
 X = tf.placeholder(tf.float32, [None, timesteps, num_input])
 Y = tf.placeholder(tf.int64, [None])
@@ -38,7 +38,6 @@ def bi_rnn(x, weights, biases):
 	return tf.matmul(outputs[-1], weights['out']) + biases['out']
 
 logits = bi_rnn(X,weights,biases)
-print(logits.shape)
 prediction = tf.nn.softmax(logits)
 
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = tf.one_hot(Y, num_classes)))
