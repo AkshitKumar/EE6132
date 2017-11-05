@@ -23,7 +23,7 @@ num_input = 128
 timesteps = 128
 num_hidden = 128
 
-X = tf.placeholder("float", [None, timesteps, num_input])
+X = tf.placeholder(tf.float32, [None, timesteps, num_input])
 Y = tf.placeholder(tf.int64, [None])
 
 # Defining weights
@@ -62,24 +62,21 @@ for epoch in range(epochs):
 	correct = 0
 	losses = []
 	iter_cnt = 0
-	for e in range(1):
-		for i in range(int(math.ceil(X_train.shape[0]/batch_size))):
-			start_idx = (i*batch_size)%X_train.shape[0]
-			idx = train_indices[start_idx:start_idx+batch_size]
+	for i in range(int(math.ceil(X_train.shape[0]/batch_size))):
+		start_idx = (i*batch_size)%X_train.shape[0]
+		idx = train_indices[start_idx:start_idx+batch_size]
 			
-			batch_x = X_train[idx,:].reshape((batch_size, timesteps, num_input))
+		batch_x = X_train[idx,:].reshape((batch_size, timesteps, num_input))
 
-			feed_dict = {X : batch_x, Y: y_train[idx]}
+		feed_dict = {X : batch_x, Y: y_train[idx]}
 
-			actual_batch_size = y_train[i:i+batch_size].shape[0]
-			loss, corr, _ = sess.run(variables, feed_dict = feed_dict)
-			losses.append(loss * actual_batch_size)
-			correct += np.sum(corr)
-			print("Iteration {0}: with minibatch training loss = {1:.3g} and accuracy of {2:.2g}".format(iter_cnt,loss,np.sum(corr)/actual_batch_size))
-			iter_cnt +=1 
+		actual_batch_size = y_train[i:i+batch_size].shape[0]
+		loss, corr, _ = sess.run(variables, feed_dict = feed_dict)
+		losses.append(loss * actual_batch_size)
+		correct += np.sum(corr)
+		print("Iteration {0}: with minibatch training loss = {1:.3g} and accuracy of {2:.2g}".format(iter_cnt,loss,np.sum(corr)/actual_batch_size))
+		iter_cnt +=1 
 		
 	total_correct = correct / X_train.shape[0]
 	total_loss = np.sum(losses)/X_train.shape[0]
-	print("Epoch {2}, Overall loss = {0:.3g} and accuracy of {1:.3g}".format(total_loss,total_correct,i+1))
-		
-		
+	print("Epoch {2}, Overall loss = {0:.3g} and accuracy of {1:.3g}".format(total_loss,total_correct,epoch+1))
