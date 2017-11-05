@@ -54,7 +54,7 @@ sess = tf.Session()
 sess.run(init)
 epochs = 10
 
-for i in range(epochs):
+for epoch in range(epochs):
 	train_indices = np.arange(X_train.shape[0])
 	np.random.shuffle(train_indices)
 
@@ -78,8 +78,8 @@ for i in range(epochs):
 			print("Iteration {0}: with minibatch training loss = {1:.3g} and accuracy of {2:.2g}".format(iter_cnt,loss,np.sum(corr)/actual_batch_size))
 			iter_cnt +=1 
 		
-		total_correct = correct / X_train.shape[0]
-		total_loss = np.sum(losses)/X_train.shape[0]
-        print("Epoch {2}, Overall loss = {0:.3g} and accuracy of {1:.3g}".format(e+1,total_loss,total_correct))
-        
+	total_correct = correct / X_train.shape[0]
+	total_loss = np.sum(losses)/X_train.shape[0]
+	print("Epoch {2}, Overall loss = {0:.3g} and accuracy of {1:.3g}".format(total_loss,total_correct,i+1))
+		
 		
