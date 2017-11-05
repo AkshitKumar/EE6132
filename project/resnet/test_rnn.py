@@ -38,6 +38,7 @@ def bi_rnn(x, weights, biases):
 	return tf.matmul(outputs[-1], weights['out']) + biases['out']
 
 logits = bi_rnn(X,weights,biases)
+print(logits.shape)
 prediction = tf.nn.softmax(logits)
 
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, labels = tf.one_hot(Y, num_classes)))
