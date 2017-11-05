@@ -34,7 +34,7 @@ def bi_rnn(x, weights, biases):
 	lstm_fw_cell = rnn.BasicLSTMCell(num_hidden, forget_bias = 1.0)
 	lstm_bw_cell = rnn.BasicLSTMCell(num_hidden, forget_bias = 1.0)
 	outputs, _ , _ = rnn.static_bidirectional_rnn(lstm_fw_cell, lstm_bw_cell, x, dtype = tf.float32)
-	return tf.matmal(outputs[-1], weights['out']) + biases['out']
+	return tf.matmul(outputs[-1], weights['out']) + biases['out']
 
 logits = bi_rnn(X,weights,biases)
 prediction = tf.nn.softmax(logits)
