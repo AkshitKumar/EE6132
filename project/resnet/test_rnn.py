@@ -11,11 +11,12 @@ num_classes = 250
 res = 128
 
 X_train, y_train, X_val, y_val, X_test, y_test, labels = datautils.get_data(num_classes=num_classes, res=128, flip=True)
-
+print "Data Loaded"
 tf.reset_default_graph()
 
 # Training parameters 
 lr = 1e-4
+batch_size = 64
 
 # network parameters
 num_input = 128
