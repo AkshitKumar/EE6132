@@ -72,7 +72,7 @@ with tf.device('/gpu:0'):
 '''
 
 X = tf.placeholder(tf.float32, [None, res, res, 1])
-y = tf.placeholder(tf.int64, [None])
+y = tf.placeholder(tf.int64, [None, num_classes])
 is_training = tf.placeholder(tf.bool)
 lr = tf.placeholder(tf.float32)
 reg = tf.placeholder(tf.float32)
