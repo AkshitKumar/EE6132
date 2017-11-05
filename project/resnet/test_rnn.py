@@ -52,7 +52,7 @@ init = tf.global_variables_initializer()
 
 sess = tf.Session()
 sess.run(init)
-epochs = 1
+epochs = 10
 
 for i in range(epochs):
 	train_indices = np.arange(X_train.shape[0])
