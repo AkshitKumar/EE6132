@@ -1,4 +1,4 @@
 *.zip 
 *.pyc
 Tensorflow-Examples/
-project/stanford-files/data/png*/
+project/resnet/data/png*/
