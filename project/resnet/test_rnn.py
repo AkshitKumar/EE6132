@@ -44,7 +44,7 @@ loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits = logits, l
 optimizer = tf.train.AdamOptimizer(learning_rate = lr)
 train = optimizer.minimize(loss)
 
-correct_pred = tf.equal(tf.argmax(prediction, 1), tf.argmax(Y, 1))
+correct_pred = tf.equal(tf.argmax(prediction, 1), Y)
 accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 # Initialize the variables
@@ -71,7 +71,7 @@ for i in range(epochs):
 
 			feed_dict = {X : batch_x, Y: y_train[idx]}
 
-			actual_batch_size = yd[i:i+batch_size].shape[0]
+			actual_batch_size = y_train[i:i+batch_size].shape[0]
 			loss, corr, _ = sess.run(variables, feed_dict = feed_dict)
 			losses.append(loss * actual_batch_size)
 			correct += np.sum(corr)
