@@ -11,7 +11,7 @@ num_classes = 250
 res = 128
 
 X_train, y_train, X_val, y_val, X_test, y_test, labels = datautils.get_data(num_classes=num_classes, res=128, flip=True)
-print "Data Loaded"
+print("Data Loaded")
 tf.reset_default_graph()
 
 # Training parameters 
@@ -65,9 +65,9 @@ for i in range(epochs):
 	for e in range(1):
 		for i in range(int(math.ceil(X_train.shape[0]/batch_size))):
 			start_idx = (i*batch_size)%X_train.shape[0]
-			idx = train_indicies[start_idx:start_idx+batch_size]
+			idx = train_indices[start_idx:start_idx+batch_size]
 			
-			feed_dict = {X : Xd[idx,:], y: yd[idx]}
+			feed_dict = {X : X_train[idx,:], y: y_train[idx]}
 
 			actual_batch_size = yd[i:i+batch_size].shape[0]
 			loss, corr, _ = sess.run(variables, feed_dict = feed_dict)
