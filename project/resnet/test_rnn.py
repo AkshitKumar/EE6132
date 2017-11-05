@@ -67,7 +67,9 @@ for i in range(epochs):
 			start_idx = (i*batch_size)%X_train.shape[0]
 			idx = train_indices[start_idx:start_idx+batch_size]
 			
-			feed_dict = {X : X_train[idx,:], y: y_train[idx]}
+			batch_x = X_train[idx,:].reshape((batch_size, timesteps, num_input))
+
+			feed_dict = {X : batch_x, Y: y_train[idx]}
 
 			actual_batch_size = yd[i:i+batch_size].shape[0]
 			loss, corr, _ = sess.run(variables, feed_dict = feed_dict)
