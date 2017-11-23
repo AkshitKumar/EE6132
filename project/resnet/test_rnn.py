@@ -21,7 +21,7 @@ batch_size = 64
 # network parameters
 num_input = 128
 timesteps = 128
-num_hidden = 500
+num_hidden = 5000
 
 X = tf.placeholder(tf.float32, [None, timesteps, num_input])
 Y = tf.placeholder(tf.int64, [None])
