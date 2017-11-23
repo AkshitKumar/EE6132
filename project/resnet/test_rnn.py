@@ -71,10 +71,10 @@ for epoch in range(epochs):
 		feed_dict = {X : batch_x, Y: y_train[idx]}
 
 		actual_batch_size = y_train[i:i+batch_size].shape[0]
-		loss, corr = sess.run(variables, feed_dict = feed_dict)
-		losses.append(loss * actual_batch_size)
+		l, corr = sess.run(variables, feed_dict = feed_dict)
+		losses.append(l * actual_batch_size)
 		correct += np.sum(corr)
-		print("Iteration {0}: with minibatch training loss = {1:.3g} and accuracy of {2:.2g}".format(iter_cnt,loss,np.sum(corr)/actual_batch_size))
+		print("Iteration {0}: with minibatch training loss = {1:.3g} and accuracy of {2:.2g}".format(iter_cnt,l,np.sum(corr)/actual_batch_size))
 		iter_cnt +=1 
 		
 	total_correct = correct / X_train.shape[0]
