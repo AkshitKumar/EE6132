@@ -7,3 +7,7 @@ elif [[ $OSTYPE == linux-gnu ]]; then
 fi
 
 unzip sketches_png.zip && rm sketches_png.zip
+
+wget -O crop_resize128.zip https://www.dropbox.com/s/eclcxeue0oq8lgs/crop_resize128.zip?dl=1
+
+unzip crop_resize128.zip && rm crop_resize128.zip

@@ -17,7 +17,8 @@ def get_data(num_classes=250, res=128, flip=True, color_invert=True, center=Fals
               flipping the provided images
         color_invert: whether or not to invert B&W values
     """
-    root_dir = "data/png{}/".format("" if res is None else res)
+    #root_dir = "data/png{}/".format("" if res is None else res)
+    root_dir = "data/crop_resize{}/".format("" if res is None else res)
     
     num_train = 96 if flip else 48
     num_val = 16

@@ -170,7 +170,7 @@ val_acc = []
 
 # In[7]:
 
-epochs = 20
+epochs = 15
 reg_val = 1e-2
 learning_rate = 1e-4
 for i in range(epochs):
@@ -180,7 +180,7 @@ for i in range(epochs):
                                  Xd=X_train,
                                  yd=y_train,
                                  epochs=1,
-                                 batch_size=128,
+                                 batch_size=64,
                                  print_every=25 ,
                                  training=train_step,
                                  plot_losses=False)
@@ -204,4 +204,4 @@ train_acc = np.array(train_acc)
 val_losses = np.array(val_losses)
 val_acc = np.array(val_acc)
 
-np.savez('large_filter_size_max_pooling.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
+np.savez('cropped_images.npz', tl = train_losses, ta = train_acc, vl = val_losses, va = val_acc)
