@@ -152,14 +152,14 @@ def run_training(net=sn):
                         print('Step %d: loss = %.2f (%.3f sec)' % (g_step, loss_value, duration))
 
                     # save model every 5 epochs
-                    if (step + 1) % (5 * epoch_size) == 0:
+                    if (step + 1) % (1 * epoch_size) == 0:
                         # Save Model
                         checkpoint_file = os.path.join(FLAGS.logdir, 'ckpt', 'model.ckpt')
                         saver.save(sess, checkpoint_file, global_step=global_step)
                         print('Checkpoint Saved!')
 
                     # evalutae the model every 10 epochs
-                    if (step + 1) % (10 * epoch_size) == 0:
+                    if (step + 1) % (1 * epoch_size) == 0:
                         # Do evaluation of the validation set
                         do_eval(sess, 
                                 eval_correct_test, 
@@ -249,7 +249,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--epoch',
         type=int,
-        default=500,
+        default=10,
         help='epoch size, the number of times the trainer should use the dataset'
     )
     parser.add_argument(
