@@ -65,7 +65,7 @@ def inference(images, dropout_prob=1.0, pretrained=(None, None), visualize=False
 
     # Layer 1
     with tf.name_scope('L1') as scope:
-        weights1 = weight_variable((15, 15, 1, 64), None if weights is None else weights['conv1'])
+        weights1 = weight_variable((15, 15, 6, 64), None if weights is None else weights['conv1'])
         
         biases1 = bias_variable((64,), None if biases is None else biases['conv1'])
         conv1 = tf.nn.conv2d(images, weights1, [1, 3, 3, 1], padding='VALID', name='conv1')
