@@ -253,7 +253,7 @@ if __name__ == '__main__':
     parser.add_argument(
         '--data_path',
         type=str,
-        default='dataset/dataset_without_order_info_256.mat',
+        default='dataset/dataset_with_order_info_256.mat',
         help='The .mat file with the dataset downloaded from http://www.eecs.qmul.ac.uk/~tmh/downloads.html'
     )
     parser.add_argument(
