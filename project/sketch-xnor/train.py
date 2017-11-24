@@ -20,6 +20,8 @@ import sketchnet as sn
 import bwsketchnet as snbw
 import sketchxnornet as snxnor
 
+accuracy_vector = []
+
 FLAGS = None
 
 def do_eval(sess, eval_correct, images_placeholder, labels_placeholder, dataset, is_train):
@@ -58,6 +60,7 @@ def do_eval(sess, eval_correct, images_placeholder, labels_placeholder, dataset,
     # print logs
     duration = time.time() - start_time
     precision = float(true_count) / num_examples
+    accuracy_vector.append(precision)
     tf.summary.scalar('precision', precision)
     print('  Num examples: %d  Num correct: %d  Precision @ 1: %0.04f (%.3f sec)' %
         (num_examples, true_count, precision, duration))
@@ -111,12 +114,14 @@ def run_training(net=sn):
 
             # Restore the variables or Run the Op to initialize variables
             latest_ckpt_file = tf.train.latest_checkpoint(os.path.join(FLAGS.logdir, 'ckpt'))
+            '''
             if latest_ckpt_file is not None:
                 saver.restore(sess, latest_ckpt_file)
                 print('Model Restored')
             else:
                 sess.run(init)
-
+            '''
+            sess.run(init)
             # Reset Global Step
             if FLAGS.reset_step:
                 sess.run(tf.assign(global_step, 0))
@@ -193,6 +198,9 @@ def main(_):
     elif FLAGS.net == 'snxnor':
         net = snxnor
     run_training(net=net)
+    accuracy_vector = np.array(accuracy_vector)
+    np.save("bwsn.npy", accuracy_vector)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
